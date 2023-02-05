@@ -1,31 +1,30 @@
 import React from 'react';
-import Input from "../Input/Input";
+import Inputs from "../Inputs/Inputs";
 
-function Form(props) {
-    const handleSubmit = (e) => {
+function MainForm(props){
+    function handleSubmit(e){
         e.preventDefault();
 
         props.rollResults();
-    };
+    }
 
     return (
-        <div className="App">
+        <div>
+            <h1>Insert Character Names and Initiative Modifiers</h1>
             <form onSubmit={handleSubmit}>
                 {props.formValues.map((obj, index) => (
-                    <Input
+                    <Inputs
                         key={index}
-                        onChange={props.handleChange}
                         index={index}
+                        onChange={props.handleChange}
                     />
                 ))}
                 <button type="button" onClick={props.add}>+</button>
                 <button type="button" onClick={props.remove}>-</button>
-                <button type="submit">
-                    Roll
-                </button>
+                <button type="submit">Roll</button>
             </form>
         </div>
     );
 }
 
-export default Form;
+export default MainForm;

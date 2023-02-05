@@ -1,24 +1,22 @@
 import React from "react";
 
-function Input(props) {
+function Inputs(props){
     return (
-        <div>
-            <div className="input">
+            <div>
                 <input
                     required={true}
                     type={"text"}
-                    id={'charName'+props.index}
+                    id={'characterName'+props.index}
                     onChange={(e) => props.onChange(e, props.index)}
                 />
                 <input
                     required={true}
                     type={"number"}
-                    id={'initModif'+props.index}
+                    id={'initiativeModifier'+props.index}
                     onChange={(e) => props.onChange(e, props.index)}
                 />
             </div>
-        </div>
     );
 }
 
-export default Input
+export default Inputs

@@ -1,80 +1,80 @@
 import React from 'react';
 import './App.css';
-import Result from '../Result/Result';
-import Form from '../Form/Form';
+import Results from '../Results/Results';
+import MainForm from '../MainForm/MainForm';
 
-function App() {
-    const [sortedArray, setSortedArray] = React.useState([])
+function App(){
+    const [results, setResults] = React.useState([])
     const [isResult, setIsResult] = React.useState(false);
-    const [formValues, setFormValues] = React.useState([
+    const [mainFormValues, setMainFormValues] = React.useState([
         {
-            charMame: "",
-            initModif: ""
+            characterName: '',
+            initiativeModifier: ''
         },
         {
-            charMame: "",
-            initModif: ""
+            characterName: '',
+            initiativeModifier: ''
         },
     ]);
 
-    const handleChange = (e, index) => {
-        const values = [...formValues];
+    function handleChange(e, index){
+        const values = [...mainFormValues];
 
-        if (e.target.id === 'charName' + index) {
-            values[index].charMame = e.target.value;
+        if (e.target.id === 'characterName' + index) {
+            values[index].characterName = e.target.value;
         } else {
-            values[index].initModif = e.target.value;
+            values[index].initiativeModifier = e.target.value;
         }
 
-        setFormValues(values);
-    };
-
-    const add = () => {
-        const values = [...formValues];
-
-        values.push({
-            charMame: "",
-            initModif: ""
-        })
-
-        setFormValues(values);
+        setMainFormValues(values);
     }
 
-    const remove = () => {
-        const values = [...formValues];
+    function addInputs(){
+        const values = [...mainFormValues];
+
+        values.push({
+            characterName: '',
+            initiativeModifier: ''
+        })
+
+        setMainFormValues(values);
+    }
+
+    function removeInputs(){
+        const values = [...mainFormValues];
         values.splice(-1, 1)
-        setFormValues(values);
+        setMainFormValues(values);
     }
 
     function rollResults(){
-        const values = [...formValues];
+        const values = [...mainFormValues];
 
-        const newResults = values.map((char)=>{
+        const resultsWithRoll = values.map((character)=>{
             return {
-                charMame: char.charMame,
-                initModif: char.initModif,
-                result: (Math.floor(Math.random() * 20) + 1)+Number(char.initModif)
+                characterName: character.characterName,
+                initiativeModifier: character.initiativeModifier,
+                result: (Math.floor(Math.random() * 20) + 1)+Number(character.initiativeModifier)
             }
         })
 
-        setSortedArray(newResults);
+        setResults(resultsWithRoll);
 
         setIsResult(true)
     }
 
     return (
-        <div className="root">
+        <div>
             {isResult ?
-                <Result
-                    list={sortedArray}
+                <Results
+                    list={results}
                     isResult={isResult}
                 /> :
-                <Form
-                formValues={formValues}
+                <MainForm
+                formValues={mainFormValues}
                 handleChange={handleChange}
                 rollResults={rollResults}
-                add={add}
-                remove={remove}/>}
+                add={addInputs}
+                remove={removeInputs}/>}
         </div>
     );
 }
