@@ -2,46 +2,6 @@ import React from 'react';
 import Input from "../Input/Input";
 
 function Form(props) {
-    /*const [formValues, setFormValues] = React.useState([
-        {
-            charMame: "",
-            initModif: ""
-        },
-        {
-            charMame: "",
-            initModif: ""
-        },
-    ]);
-
-    const handleChange = (e, index) => {
-        const values = [...formValues];
-
-        if (e.target.id === 'charName' + index) {
-            values[index].charMame = e.target.value;
-        } else {
-            values[index].initModif = e.target.value;
-        }
-
-        setFormValues(values);
-    };
-
-    const add = () => {
-        const values = [...formValues];
-
-        values.push({
-            charMame: "",
-            initModif: ""
-        })
-
-        setFormValues(values);
-    }
-
-    const remove = () => {
-        const values = [...formValues];
-        values.splice(-1, 1)
-        setFormValues(values);
-    }*/
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

@@ -20,6 +20,13 @@ function Result(props) {
         },
         [props.isResult])
 
+    function removeCharacter (index){
+        const resultsCopy = [...results];
+
+        resultsCopy.splice(index,1);
+
+        setResults(resultsCopy);
+    }
 
     return (
         <div>
@@ -29,8 +36,11 @@ function Result(props) {
                     results.map((character, index) =>
                         <CharacterResult
                             key={index}
+                            index={index}
                             name={character.charMame}
-                            result={character.result}/>
+                            result={character.result}
+                            removeCharacter={removeCharacter}
+                        />
                     )
                 }
             </ul>
