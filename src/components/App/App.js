@@ -4,38 +4,77 @@ import Result from '../Result/Result';
 import Form from '../Form/Form';
 
 function App() {
-    const initListUnsorted = [{
-        name: 'Sein',
-        mod: +1,
-        result: 20
-    }, {
-        name: 'Alvin',
-        mod: +3,
-        result: 19
-    }, {
-        name: 'Goratio',
-        mod: +2,
-        result: 9
-    }];
-    const [isResult, setIsResult] = React.useState(true);
+    const [sortedArray, setSortedArray] = React.useState([])
+    const [isResult, setIsResult] = React.useState(false);
+    const [formValues, setFormValues] = React.useState([
+        {
+            charMame: "",
+            initModif: ""
+        },
+        {
+            charMame: "",
+            initModif: ""
+        },
+    ]);
 
-    function compare(a, b) {
-        if (a.result < b.result) {
-            return -1;
+    const handleChange = (e, index) => {
+        const values = [...formValues];
+
+        if (e.target.id === 'charName' + index) {
+            values[index].charMame = e.target.value;
+        } else {
+            values[index].initModif = e.target.value;
         }
-        if (a.result > b.result) {
-            return 1;
-        }
-        return 0;
+
+        setFormValues(values);
+    };
+
+    const add = () => {
+        const values = [...formValues];
+
+        values.push({
+            charMame: "",
+            initModif: ""
+        })
+
+        setFormValues(values);
     }
 
-    let sortedArr = [...initListUnsorted].sort(compare);
+    const remove = () => {
+        const values = [...formValues];
+        values.splice(-1, 1)
+        setFormValues(values);
+    }
+
+    function rollResults(){
+        const values = [...formValues];
+
+        const newResults = values.map((char)=>{
+            return {
+                charMame: char.charMame,
+                initModif: char.initModif,
+                result: (Math.floor(Math.random() * 20) + 1)+Number(char.initModif)
+            }
+        })
+
+        setSortedArray(newResults);
+
+        setIsResult(true)
+    }
 
     return (
         <div className="root">
-            {isResult ? <Result
-                list={sortedArr}
-            /> : <Form/>}
+            {isResult ?
+                <Result
+                    list={sortedArray}
+                    isResult={isResult}
+                /> :
+                <Form
+                formValues={formValues}
+                handleChange={handleChange}
+                rollResults={rollResults}
+                add={add}
+                remove={remove}/>}
         </div>
     );
 }

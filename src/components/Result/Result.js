@@ -1,20 +1,35 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
 
 function Result(props) {
-    const [initListSorted, setInitListSorted] = React.useState([]);
+    const [results, setResults] = React.useState([]);
 
-    useEffect(()=>setInitListSorted(props.list))
+    function compare(a, b) {
+        if (a.result > b.result) {
+            return -1;
+        }
+        if (a.result < b.result) {
+            return 1;
+        }
+        return 0;
+    }
+
+    React.useEffect(() => {
+            const sortedArr = [...props.list].sort(compare);
+            setResults(sortedArr)
+        },
+        [props.isResult])
+
 
     return (
         <div>
             <h1>Result</h1>
             <ul>
                 {
-                    initListSorted.map((character) =>
+                    results.map((character, index) =>
                         <CharacterResult
-                            key={character.name}
-                            name={character.name}
+                            key={index}
+                            name={character.charMame}
                             result={character.result}/>
                     )
                 }
