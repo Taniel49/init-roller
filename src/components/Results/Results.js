@@ -12,7 +12,17 @@ function Results(props){
         if (a.result < b.result) {
             return 1;
         }
-        return 0;
+        if (a.result === b.result) {
+            if (a.initiativeModifier < b.initiativeModifier) {
+                return 1;
+            }
+            if (a.initiativeModifier > b.initiativeModifier) {
+                return -1;
+            }
+            if (a.initiativeModifier === b.initiativeModifier) {
+                return 0
+            }
+        }
     }
 
     React.useEffect(() => {
