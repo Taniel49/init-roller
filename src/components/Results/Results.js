@@ -1,11 +1,11 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
 
-function Results(props){
+function Results(props) {
     const [results, setResults] = React.useState([]);
     const [formValues, setFormValues] = React.useState({});
 
-    function compare(a, b){
+    function compare(a, b) {
         if (a.result > b.result) {
             return -1;
         }
@@ -20,17 +20,21 @@ function Results(props){
                 return -1;
             }
             if (a.initiativeModifier === b.initiativeModifier) {
-                return 0
+                const randomNumber = Math.random();
+                if (randomNumber > 0.5) {
+                    return 1
+                }
+                return -1
             }
         }
     }
 
     React.useEffect(() => {
-            const sortedArr = [...props.list].sort(compare);
-            setResults(sortedArr)
-        }, [props.isResult])
+        const sortedArr = [...props.list].sort(compare);
+        setResults(sortedArr)
+    }, [props.isResult])
 
-    function handleChange (e){
+    function handleChange(e) {
         const clonedValues = {
             ...formValues
         }
@@ -44,7 +48,7 @@ function Results(props){
         setFormValues(clonedValues);
     }
 
-    function submitNewCharacter(e){
+    function submitNewCharacter(e) {
         e.preventDefault();
 
         const clonedResults = [...results];
@@ -52,7 +56,7 @@ function Results(props){
             ...formValues
         }
 
-        clonedValues.result=(Math.floor(Math.random() * 20) + 1)+Number(clonedValues.initiativeModifier);
+        clonedValues.result = (Math.floor(Math.random() * 20) + 1) + Number(clonedValues.initiativeModifier);
 
         clonedResults.push(clonedValues);
 
