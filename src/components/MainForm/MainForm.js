@@ -1,5 +1,5 @@
 import React from 'react';
-import Inputs from "../Inputs/Inputs";
+import InputGroup from "../InputGroup/InputGroup";
 
 function MainForm(props){
     function handleSubmit(e){
@@ -13,7 +13,7 @@ function MainForm(props){
             <h1>Insert Character Names and Initiative Modifiers</h1>
             <form onSubmit={handleSubmit}>
                 {props.formValues.map((obj, index) => (
-                    <Inputs
+                    <InputGroup
                         key={index}
                         index={index}
                         onChange={props.handleChange}

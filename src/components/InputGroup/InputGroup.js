@@ -1,6 +1,6 @@
 import React from "react";
 
-function Inputs(props){
+function InputGroup(props){
     return (
             <div>
                 <input
@@ -19,4 +19,4 @@ function Inputs(props){
     );
 }
 
-export default Inputs
+export default InputGroup
