@@ -2,14 +2,14 @@ import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
 import Utils from "../../utils/Utils";
 
-function Results(props) {
+function Results({list}) {
     const [results, setResults] = React.useState([]);
     const [formValues, setFormValues] = React.useState({});
 
     React.useEffect(() => {
-        const sortedArr = [...props.list].sort(Utils.compare);
+        const sortedArr = [...list].sort(Utils.compare);
         setResults(sortedArr)
-    }, [props.list])
+    }, [list])
 
     function handleChange(e) {
         const clonedValues = {

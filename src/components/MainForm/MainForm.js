@@ -1,26 +1,26 @@
 import React from 'react';
 import InputGroup from "../InputGroup/InputGroup";
 
-function MainForm(props){
+function MainForm({formValues,handleChange, rollResults, add, remove}){
     function handleSubmit(e){
         e.preventDefault();
 
-        props.rollResults();
+        rollResults();
     }
 
     return (
         <div>
             <h1>Insert Character Names and Initiative Modifiers</h1>
             <form onSubmit={handleSubmit}>
-                {props.formValues.map((obj, index) => (
+                {formValues.map((obj, index) => (
                     <InputGroup
                         key={index}
                         index={index}
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                     />
                 ))}
-                <button type="button" onClick={props.add}>+</button>
-                <button type="button" onClick={props.remove}>-</button>
+                <button type="button" onClick={add}>+</button>
+                <button type="button" onClick={remove}>-</button>
                 <button type="submit">Roll</button>
             </form>
         </div>
