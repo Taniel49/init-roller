@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Results from '../Results/Results';
 import MainForm from '../MainForm/MainForm';
+import Utils from "../../utils/Utils";
 
 function App(){
     const [results, setResults] = React.useState([])
@@ -28,11 +29,11 @@ function App(){
         setMainFormValues(values);
     }
 
-    function addInputs(){
+    function addInputGroup(){
         setMainFormValues([...mainFormValues, {characterName:'', initiativeModifier:''}]);
     }
 
-    function removeInputs(){
+    function removeLastInputGroup(){
         const values = [...mainFormValues];
         values.splice(-1, 1)
         setMainFormValues(values);
@@ -43,9 +44,7 @@ function App(){
 
         const resultsWithRoll = values.map((character)=>{
             return {
-                characterName: character.characterName,
-                initiativeModifier: character.initiativeModifier,
-                result: (Math.floor(Math.random() * 20) + 1)+Number(character.initiativeModifier)
+                ...character, result: Utils.getInitiative(character)
             }
         })
 
@@ -62,8 +61,8 @@ function App(){
                 formValues={mainFormValues}
                 handleChange={handleChange}
                 rollResults={rollResults}
-                add={addInputs}
-                remove={removeInputs}/>}
+                add={addInputGroup}
+                remove={removeLastInputGroup}/>}
         </div>
     );
 }

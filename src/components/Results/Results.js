@@ -1,36 +1,13 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
+import Utils from "../../utils/Utils";
 
 function Results(props) {
     const [results, setResults] = React.useState([]);
     const [formValues, setFormValues] = React.useState({});
 
-    function compare(a, b) {
-        if (a.result > b.result) {
-            return -1;
-        }
-        if (a.result < b.result) {
-            return 1;
-        }
-        if (a.result === b.result) {
-            if (a.initiativeModifier < b.initiativeModifier) {
-                return 1;
-            }
-            if (a.initiativeModifier > b.initiativeModifier) {
-                return -1;
-            }
-            if (a.initiativeModifier === b.initiativeModifier) {
-                const randomNumber = Math.random();
-                if (randomNumber > 0.5) {
-                    return 1
-                }
-                return -1
-            }
-        }
-    }
-
     React.useEffect(() => {
-        const sortedArr = [...props.list].sort(compare);
+        const sortedArr = [...props.list].sort(Utils.compare);
         setResults(sortedArr)
     }, [props.list])
 
@@ -52,15 +29,10 @@ function Results(props) {
         e.preventDefault();
 
         const clonedResults = [...results];
-        const clonedValues = {
-            ...formValues
-        }
 
-        clonedValues.result = (Math.floor(Math.random() * 20) + 1) + Number(clonedValues.initiativeModifier);
+        clonedResults.push({...formValues, result:Utils.getInitiative(formValues)});
 
-        clonedResults.push(clonedValues);
-
-        clonedResults.sort(compare);
+        clonedResults.sort(Utils.compare);
 
         setResults(clonedResults);
     }
