@@ -32,7 +32,7 @@ function Results(props) {
     React.useEffect(() => {
         const sortedArr = [...props.list].sort(compare);
         setResults(sortedArr)
-    }, [props.isResult])
+    }, [props.list])
 
     function handleChange(e) {
         const clonedValues = {

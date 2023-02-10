@@ -5,7 +5,6 @@ import MainForm from '../MainForm/MainForm';
 
 function App(){
     const [results, setResults] = React.useState([])
-    const [isResult, setIsResult] = React.useState(false);
     const [mainFormValues, setMainFormValues] = React.useState([
         {
             characterName: '',
@@ -58,16 +57,13 @@ function App(){
         })
 
         setResults(resultsWithRoll);
-
-        setIsResult(true)
     }
 
     return (
         <div>
-            {isResult ?
+            {results.length>0 ?
                 <Results
                     list={results}
-                    isResult={isResult}
                 /> :
                 <MainForm
                 formValues={mainFormValues}
