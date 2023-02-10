@@ -29,14 +29,7 @@ function App(){
     }
 
     function addInputs(){
-        const values = [...mainFormValues];
-
-        values.push({
-            characterName: '',
-            initiativeModifier: ''
-        })
-
-        setMainFormValues(values);
+        setMainFormValues([...mainFormValues, {characterName:'', initiativeModifier:''}]);
     }
 
     function removeInputs(){
