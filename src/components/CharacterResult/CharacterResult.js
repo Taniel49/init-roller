@@ -1,7 +1,7 @@
 import React from 'react';
 
 function CharacterResult({name, result, index, removeCharacter}) {
-    const [isTextareaOpened, setTextareaOpened] = React.useState('false');
+    const [isTextareaOpened, setTextareaOpened] = React.useState(false);
 
     return (
         <li>
