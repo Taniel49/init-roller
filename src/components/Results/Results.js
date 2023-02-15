@@ -1,38 +1,30 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
 import Utils from "../../utils/Utils";
+import { v4 as uuidv4 } from 'uuid';
 
-function Results({list}) {
+function Results() {
+    const nameRef = React.useRef('');
+    const initiativeRef = React.useRef('');
     const [results, setResults] = React.useState([]);
-    const [formValues, setFormValues] = React.useState({});
-
-    React.useEffect(() => {
-        const sortedArr = [...list].sort(Utils.compare);
-        setResults(sortedArr)
-    }, [list])
-
-    function handleChange(e) {
-        const clonedValues = {
-            ...formValues
-        }
-
-        if (e.target.id === 'newCharacterName') {
-            clonedValues.characterName = e.target.value;
-        } else {
-            clonedValues.initiativeModifier = e.target.value;
-        }
-
-        setFormValues(clonedValues);
-    }
 
     function submitNewCharacter(e) {
         e.preventDefault();
 
-        const clonedResults = [...results, {...formValues, result:Utils.getInitiative(formValues)}];
+        const clonedResults = [...results, {
+            _id: uuidv4(),
+            characterName: nameRef.current.value,
+            result: Utils.getInitiative(initiativeRef.current.value)
+        }];
 
         clonedResults.sort(Utils.compare);
 
         setResults(clonedResults);
+
+        nameRef.current.value= '';
+        initiativeRef.current.value= '';
+
+        nameRef.current.select();
     }
 
     function removeCharacter(index) {
@@ -45,12 +37,12 @@ function Results({list}) {
 
     return (
         <div>
-            <h1>Results</h1>
+            {results.length ? <h1>Results</h1> : <h1>Insert Character Name and Modifier</h1>}
             <ul>
                 {
                     results.map((character, index) =>
                         <CharacterResult
-                            key={index}
+                            key={character._id}
                             index={index}
                             name={character.characterName}
                             result={character.result}
@@ -63,13 +55,13 @@ function Results({list}) {
                 <h2>Add Character</h2>
                 <input required={true}
                        type={'text'}
-                       id={'newCharacterName'}
-                       onChange={(e) => handleChange(e)}/>
+                       name={'newCharacterName'}
+                       ref={nameRef}/>
                 <input required={true}
                        type={'number'}
-                       id={'newCharacterModifier'}
-                       onChange={(e) => handleChange(e)}/>
-                <button type={'submit'}>Add</button>
+                       name={'newCharacterModifier'}
+                       ref={initiativeRef}/>
+                <button type={'submit'}>Roll</button>
             </form>
         </div>
     );

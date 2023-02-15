@@ -1,8 +1,8 @@
 import React from 'react';
 
-function CharacterResult(props){
+function CharacterResult({name, result, index, removeCharacter}){
     return (
-        <li>{props.name}:{props.result}<button type={'button'} onClick={()=>{props.removeCharacter(props.index)}}> remove</button></li>
+        <li>{name}:{result}<button type={'button'} onClick={()=>{removeCharacter(index)}}> remove</button></li>
     );
 }
 

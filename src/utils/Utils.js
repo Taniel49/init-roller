@@ -1,5 +1,5 @@
-function getInitiative(character) {
-    return (Math.floor(Math.random() * 20) + 1) + Number(character.initiativeModifier)
+function getInitiative(initModif) {
+    return (Math.floor(Math.random() * 20) + 1) + Number(initModif)
 }
 
 function compare(a, b) {
