@@ -28,9 +28,7 @@ function Results({list}) {
     function submitNewCharacter(e) {
         e.preventDefault();
 
-        const clonedResults = [...results];
-
-        clonedResults.push({...formValues, result:Utils.getInitiative(formValues)});
+        const clonedResults = [...results, {...formValues, result:Utils.getInitiative(formValues)}];
 
         clonedResults.sort(Utils.compare);
 

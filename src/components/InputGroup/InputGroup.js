@@ -1,19 +1,19 @@
 import React from "react";
 
-function InputGroup(props){
+function InputGroup({index, onChange}){
     return (
             <div>
                 <input
                     required={true}
                     type={"text"}
-                    id={'characterName'+props.index}
-                    onChange={(e) => props.onChange(e, props.index)}
+                    id={'characterName'+index}
+                    onChange={(e) => onChange(e, index)}
                 />
                 <input
                     required={true}
                     type={"number"}
-                    id={'initiativeModifier'+props.index}
-                    onChange={(e) => props.onChange(e, props.index)}
+                    id={'initiativeModifier'+index}
+                    onChange={(e) => onChange(e, index)}
                 />
             </div>
     );
