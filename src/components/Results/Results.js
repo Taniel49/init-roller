@@ -1,87 +1,48 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
+import {compare} from "../../utils/utils";
+import {getInitiative} from "../../utils/utils";
+import {v4 as uuidv4} from 'uuid';
 
-function Results(props) {
+function Results() {
+    const nameRef = React.useRef('');
+    const initiativeRef = React.useRef('');
     const [results, setResults] = React.useState([]);
-    const [formValues, setFormValues] = React.useState({});
-
-    function compare(a, b) {
-        if (a.result > b.result) {
-            return -1;
-        }
-        if (a.result < b.result) {
-            return 1;
-        }
-        if (a.result === b.result) {
-            if (a.initiativeModifier < b.initiativeModifier) {
-                return 1;
-            }
-            if (a.initiativeModifier > b.initiativeModifier) {
-                return -1;
-            }
-            if (a.initiativeModifier === b.initiativeModifier) {
-                const randomNumber = Math.random();
-                if (randomNumber > 0.5) {
-                    return 1
-                }
-                return -1
-            }
-        }
-    }
-
-    React.useEffect(() => {
-        const sortedArr = [...props.list].sort(compare);
-        setResults(sortedArr)
-    }, [props.isResult])
-
-    function handleChange(e) {
-        const clonedValues = {
-            ...formValues
-        }
-
-        if (e.target.id === 'newCharacterName') {
-            clonedValues.characterName = e.target.value;
-        } else {
-            clonedValues.initiativeModifier = e.target.value;
-        }
-
-        setFormValues(clonedValues);
-    }
 
     function submitNewCharacter(e) {
         e.preventDefault();
 
-        const clonedResults = [...results];
-        const clonedValues = {
-            ...formValues
-        }
-
-        clonedValues.result = (Math.floor(Math.random() * 20) + 1) + Number(clonedValues.initiativeModifier);
-
-        clonedResults.push(clonedValues);
+        const clonedResults = [...results, {
+            _id: uuidv4(),
+            characterName: nameRef.current.value,
+            result: getInitiative(Number(initiativeRef.current.value))
+        }];
 
         clonedResults.sort(compare);
 
         setResults(clonedResults);
+
+        nameRef.current.value = '';
+        initiativeRef.current.value = '';
+
+        nameRef.current.select();
     }
 
-    function removeCharacter(index) {
+    function removeCharacter(id) {
         const clonedResults = [...results];
 
-        clonedResults.splice(index, 1);
-
-        setResults(clonedResults);
+        setResults(clonedResults.filter((character => character._id !== id)));
     }
 
     return (
         <div>
-            <h1>Results</h1>
+            {results.length ? <h1>Results</h1> : <h1>Insert Character Name and Modifier</h1>}
             <ul>
                 {
                     results.map((character, index) =>
                         <CharacterResult
-                            key={index}
-                            index={index}
+                            key={character._id}
+                            id={character._id}
                             name={character.characterName}
                             result={character.result}
                             removeCharacter={removeCharacter}
@@ -92,14 +53,14 @@ function Results(props) {
             <form onSubmit={submitNewCharacter}>
                 <h2>Add Character</h2>
                 <input required={true}
-                       type={'text'}
-                       id={'newCharacterName'}
-                       onChange={(e) => handleChange(e)}/>
+                       type='text'
+                       name='newCharacterName'
+                       ref={nameRef}/>
                 <input required={true}
-                       type={'number'}
-                       id={'newCharacterModifier'}
-                       onChange={(e) => handleChange(e)}/>
-                <button type={'submit'}>Add</button>
+                       type='number'
+                       name='newCharacterModifier'
+                       ref={initiativeRef}/>
+                <button type='submit'>Roll</button>
             </form>
         </div>
     );
