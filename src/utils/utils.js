@@ -1,8 +1,8 @@
-function getInitiative(initModif) {
-    return (Math.floor(Math.random() * 20) + 1) + Number(initModif)
+export function getInitiative(initModif) {
+    return (Math.floor(Math.random() * 20) + 1) + initModif
 }
 
-function compare(a, b) {
+export function compare(a, b) {
     if (a.result > b.result) {
         return -1;
     }
@@ -18,12 +18,7 @@ function compare(a, b) {
         }
         if (a.initiativeModifier === b.initiativeModifier) {
             const randomNumber = Math.random();
-            if (randomNumber > 0.5) {
-                return 1
-            }
-            return -1
+            return randomNumber > 0.5 ? 1 : -1;
         }
     }
 }
-
-export default {getInitiative, compare};

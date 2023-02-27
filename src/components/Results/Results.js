@@ -1,7 +1,8 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
-import Utils from "../../utils/Utils";
-import { v4 as uuidv4 } from 'uuid';
+import {compare} from "../../utils/utils";
+import {getInitiative} from "../../utils/utils";
+import {v4 as uuidv4} from 'uuid';
 
 function Results() {
     const nameRef = React.useRef('');
@@ -14,25 +15,23 @@ function Results() {
         const clonedResults = [...results, {
             _id: uuidv4(),
             characterName: nameRef.current.value,
-            result: Utils.getInitiative(initiativeRef.current.value)
+            result: getInitiative(Number(initiativeRef.current.value))
         }];
 
-        clonedResults.sort(Utils.compare);
+        clonedResults.sort(compare);
 
         setResults(clonedResults);
 
-        nameRef.current.value= '';
-        initiativeRef.current.value= '';
+        nameRef.current.value = '';
+        initiativeRef.current.value = '';
 
         nameRef.current.select();
     }
 
-    function removeCharacter(index) {
+    function removeCharacter(id) {
         const clonedResults = [...results];
 
-        clonedResults.splice(index, 1);
-
-        setResults(clonedResults);
+        setResults(clonedResults.filter((character => character._id !== id)));
     }
 
     return (
@@ -43,7 +42,7 @@ function Results() {
                     results.map((character, index) =>
                         <CharacterResult
                             key={character._id}
-                            index={index}
+                            id={character._id}
                             name={character.characterName}
                             result={character.result}
                             removeCharacter={removeCharacter}
@@ -54,14 +53,14 @@ function Results() {
             <form onSubmit={submitNewCharacter}>
                 <h2>Add Character</h2>
                 <input required={true}
-                       type={'text'}
-                       name={'newCharacterName'}
+                       type='text'
+                       name='newCharacterName'
                        ref={nameRef}/>
                 <input required={true}
-                       type={'number'}
-                       name={'newCharacterModifier'}
+                       type='number'
+                       name='newCharacterModifier'
                        ref={initiativeRef}/>
-                <button type={'submit'}>Roll</button>
+                <button type='submit'>Roll</button>
             </form>
         </div>
     );
