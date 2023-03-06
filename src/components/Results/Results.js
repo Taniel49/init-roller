@@ -1,8 +1,13 @@
 import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
-import {compare} from "../../utils/utils";
-import {getInitiative} from "../../utils/utils";
+import {compare, getInitiative} from "../../utils/utils";
 import {v4 as uuidv4} from 'uuid';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
+import List from '@mui/material/List';
+import Box from '@mui/material/Box';
+import Typography from "@mui/material/Typography";
+import Container from '@mui/material/Container';
 
 function Results() {
     const nameRef = React.useRef('');
@@ -35,11 +40,12 @@ function Results() {
     }
 
     return (
-        <div>
-            {results.length ? <h1>Results</h1> : <h1>Insert Character Name and Modifier</h1>}
-            <ul>
+        <Box>
+            {results.length ? <Typography component="h1" variant="h1">Results</Typography> :
+                <Typography component="h1" variant="h1">Insert Character Name and Modifier</Typography>}
+            <List>
                 {
-                    results.map((character, index) =>
+                    results.map((character) =>
                         <CharacterResult
                             key={character._id}
                             id={character._id}
@@ -49,20 +55,22 @@ function Results() {
                         />
                     )
                 }
-            </ul>
-            <form onSubmit={submitNewCharacter}>
-                <h2>Add Character</h2>
-                <input required={true}
-                       type='text'
-                       name='newCharacterName'
-                       ref={nameRef}/>
-                <input required={true}
-                       type='number'
-                       name='newCharacterModifier'
-                       ref={initiativeRef}/>
-                <button type='submit'>Roll</button>
-            </form>
-        </div>
+            </List>
+            <Box component="form" onSubmit={submitNewCharacter}>
+                <Typography component="h2" variant="h2">Add Character</Typography>
+                <Container>
+                    <Input required={true}
+                           type='text'
+                           name='newCharacterName'
+                           inputRef={nameRef}/>
+                    <Input required={true}
+                           type='number'
+                           name='newCharacterModifier'
+                           inputRef={initiativeRef}/>
+                    <Button type='submit' variant="contained">Roll</Button>
+                </Container>
+            </Box>
+        </Box>
     );
 }
 

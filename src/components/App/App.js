@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import Results from '../Results/Results';
+import Box from '@mui/material/Box';
 
 function App() {
     return (
-        <div>
+        <Box>
             <Results/>
-        </div>
+        </Box>
     );
 }
 
