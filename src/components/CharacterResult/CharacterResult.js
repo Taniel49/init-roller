@@ -10,7 +10,13 @@ function CharacterResult({name, result, id, removeCharacter}) {
     const [isTextareaOpened, setTextareaOpened] = React.useState(false);
 
     return (
-        <ListItem>
+        <ListItem  sx={{
+            '&:hover': {
+                '.RemoveButton': {
+                    display: 'block'
+                }
+            }
+        }}>
             <Button type='button'
                     variant='text'
                     onClick={() => {
@@ -22,7 +28,9 @@ function CharacterResult({name, result, id, removeCharacter}) {
                     }}>
                 <Typography>{name}:{result}</Typography>
             </Button>
-            <IconButton aria-label="delete"
+            <IconButton className="RemoveButton"
+                        sx={{display: 'none'}}
+                        aria-label="delete"
                         onClick={() => {
                             removeCharacter(id)
                         }}>
