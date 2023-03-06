@@ -41,8 +41,8 @@ function Results() {
 
     return (
         <Box>
-            {results.length ? <Typography component="h1" variant="h1">Results</Typography> :
-                <Typography component="h1" variant="h1">Insert Character Name and Modifier</Typography>}
+            {results.length ? <Typography component="h1" variant="h3">Results</Typography> :
+                <Typography component="h1" variant="h4">Insert Character Name and Modifier</Typography>}
             <List>
                 {
                     results.map((character) =>
