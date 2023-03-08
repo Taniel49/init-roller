@@ -7,7 +7,8 @@ import Input from '@mui/material/Input';
 import List from '@mui/material/List';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
-import Container from '@mui/material/Container';
+import Grid2 from "@mui/material/Unstable_Grid2";
+import Tooltip from '@mui/material/Tooltip';
 
 function Results() {
     const nameRef = React.useRef('');
@@ -42,7 +43,7 @@ function Results() {
     return (
         <Box>
             {results.length ? <Typography component="h1" variant="h3">Results</Typography> :
-                <Typography component="h1" variant="h4">Insert Character Name and Modifier</Typography>}
+                <Typography component="h1" variant="h3">Insert Character Name and Modifier</Typography>}
             <List>
                 {
                     results.map((character) =>
@@ -57,18 +58,28 @@ function Results() {
                 }
             </List>
             <Box component="form" onSubmit={submitNewCharacter}>
-                <Typography component="h2" variant="h2">Add Character</Typography>
-                <Container>
-                    <Input required={true}
-                           type='text'
-                           name='newCharacterName'
-                           inputRef={nameRef}/>
-                    <Input required={true}
-                           type='number'
-                           name='newCharacterModifier'
-                           inputRef={initiativeRef}/>
-                    <Button type='submit' variant="contained">Roll</Button>
-                </Container>
+                <Typography component="h2" variant="subtitle2" sx={{fontSize: 30}}>Add Character</Typography>
+                <Grid2 container spacing={2} sx={{maxWidth: 330}}>
+                    <Grid2 xs={6}>
+                        <Tooltip title="Character Name">
+                            <Input required={true}
+                                   type='text'
+                                   name='newCharacterName'
+                                   inputRef={nameRef}/>
+                        </Tooltip>
+                    </Grid2>
+                    <Grid2 xs={2}>
+                        <Tooltip title="Initiative Modifier">
+                            <Input required={true}
+                                   type='number'
+                                   name='newCharacterModifier'
+                                   inputRef={initiativeRef}/>
+                        </Tooltip>
+                    </Grid2>
+                    <Grid2 xs={4}>
+                        <Button type='submit' variant="contained" sx={{background: 'black'}}>Roll</Button>
+                    </Grid2>
+                </Grid2>
             </Box>
         </Box>
     );

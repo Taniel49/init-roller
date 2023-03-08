@@ -26,9 +26,10 @@ function CharacterResult({name, result, id, removeCharacter}) {
                         color: 'black',
                         textTransform: 'none',
                     }}>
-                <Typography>{name}:{result}</Typography>
+                <Typography variant='body1' sx={{fontSize:24}}>{name}:{result}</Typography>
             </Button>
             <IconButton className="RemoveButton"
+                        size="small"
                         sx={{display: 'none'}}
                         aria-label="delete"
                         onClick={() => {
