@@ -2,13 +2,8 @@ import React from 'react';
 import CharacterResult from "../CharacterResult/CharacterResult";
 import {compare, getInitiative} from "../../utils/utils";
 import {v4 as uuidv4} from 'uuid';
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import List from '@mui/material/List';
-import Box from '@mui/material/Box';
-import Typography from "@mui/material/Typography";
+import {Button, Typography, Box, Input, List, Tooltip} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import Tooltip from '@mui/material/Tooltip';
 
 function Results() {
     const nameRef = React.useRef('');
